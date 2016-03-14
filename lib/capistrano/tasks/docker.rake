@@ -16,6 +16,10 @@ namespace :docker do
       env[env_key] = ENV[env_key]
     end
 
+    if fetch(:docker_inject_release_date)
+      env['RELEASE_DATE'] = File.basename(release_path)
+    end
+
     SSHKit.config.default_env.merge! env
   end
 
